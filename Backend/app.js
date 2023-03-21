@@ -8,8 +8,10 @@ app.use(cookieParser())
 
 //route imports
 const user = require('./routes/userRoutes')
+const post = require('./routes/postRoutes')
 
 app.use('/api/v1',user)
+app.use('/api/v1',post)
 
 //middleware for error
 app.use(errmiddleware)

@@ -5,8 +5,7 @@ const Errorhandler = require('../utills/errorHandler');
 
 exports.isAuthenticateUser = catchAsyceError(async(req,res,next) => {
     const { token}  = req.cookies;
-
-
+    
     if(!token){
         return next(new Errorhandler("Please Login to access this Resource",401))
     }

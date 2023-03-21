@@ -1,13 +1,11 @@
 const postModel = require('../models/postModel')
 const Errorhandler = require('../utills/errorHandler')
 const catchAsyceError = require('../middleware/catchAsyncError')
-const ApiFeatures = require('../utills/apifeatures')
 const { mongoose } = require('mongoose')
 
 //create Post
 exports.createPost =catchAsyceError( async (req,res) => {
 
-    const {comment} = req.body;
     const post = await postModel.create({
         user: req.user._id,
         title:req.body.title,

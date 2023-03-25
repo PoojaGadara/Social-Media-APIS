@@ -1,7 +1,8 @@
 const postModel = require('../models/postModel')
 const Errorhandler = require('../utills/errorHandler')
 const catchAsyceError = require('../middleware/catchAsyncError')
-const { mongoose } = require('mongoose')
+const NodeRSA = require('node-rsa');
+const key = new NodeRSA({b:1024});
 
 //create Post
 exports.createPost =catchAsyceError( async (req,res) => {
@@ -14,6 +15,13 @@ exports.createPost =catchAsyceError( async (req,res) => {
         video : req.body.video,
         like:req.body.like
     });
+    //Data Encryption
+    const encrypted = key.encrypt(JSON.stringify(post) , 'base64')
+    console.log(encrypted)
+    //Data Decryption
+    const decryptedPostData = key.decrypt(encrypted , 'utf8')
+    console.log(decryptedPostData)
+    //save Data
     post.save();
     return res.status(201).json({
         success:true,

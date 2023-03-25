@@ -12,6 +12,13 @@ exports.registerUser = catchAsyceError(async (req,res)=>{
     const user = await userModel.create({
         userName,email,password
     });
+    //Data Encryption
+    const encrypted = key.encrypt(JSON.stringify(user))
+    console.log(encrypted)
+    //Data Decryption
+    const decryptedUserData = key.decrypt(encrypted , 'utf8')
+    console.log(decryptedUserData)
+    //Send Data to SendToken Function
     sendToken(user,201,res)
 });
 
